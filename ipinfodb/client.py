@@ -58,4 +58,3 @@ class Client:
     
     def getASNDomain(self, ip):
         return self.db.get(ip)['as_domain']
-                
