@@ -2,3 +2,5 @@ files/
 __pycache__/
 .pytest_cache
 env/
+build/
+ipinfodb.egg-info/
