@@ -1,6 +1,6 @@
 # [<img src="https://ipinfo.io/static/ipinfo-small.svg" alt="IPinfo" width="24"/>](https://ipinfo.io/) IPinfo Python Free Database Library
 
-This is the official Python library for the IPinfo.io free database, allowing you to lookup country and ASN details for an IP.
+This is the official Python library for IPinfo.io's free [IP to Country ASN Database](https://ipinfo.io/products/free-ip-database), allowing you to lookup country and ASN details for IP addresses.
 
 ## Getting Started
 
