@@ -25,3 +25,7 @@ def test_get_asn_name():
 
 def test_get_asn_domain():
     assert(client.getASNDomain('8.8.8.8'),"google.com")
+
+def test_no_ip_details():
+    assert(client.getDetails('127.0.0.1'), None)
+    assert(client.getCountry('127.0.0.1'), None)

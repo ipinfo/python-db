@@ -37,7 +37,7 @@ class Client:
         self.db = maxminddb.open_database(self.path)
 
     def getDetails(self, ip):
-        return self.db.get(ip) or _no_data_error(ip)
+        return self.db.get(ip)
 
     def getCountry(self, ip):
         return self._get_data_field(ip, 'country')
@@ -62,9 +62,4 @@ class Client:
     
     def _get_data_field(self, ip, field):
         data = self.db.get(ip)
-        return data[field] if data else _no_data_error(ip)
-    
-# helper function to return error message.
-def _no_data_error(ip): 
-    return f"err: couldn't get data for {ip}"
-
+        return data[field] if data else None
