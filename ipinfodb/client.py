@@ -1,9 +1,11 @@
 import maxminddb
 import urllib.request
 import os
+import appdirs
 
 DB_DOWNLOAD_URL = "https://ipinfo.io/data/free/country_asn.mmdb?token="
-DEFAULT_DB_PATH = "./files/country_asn.mmdb"
+DEFAULT_APP_PATH = appdirs.user_data_dir(appname='ipinfodb', appauthor='ipinfo') 
+DEFAULT_DB_PATH = os.path.join(DEFAULT_APP_PATH, 'files/country_asn.mmdb')
 
 class Client:
 
@@ -18,9 +20,9 @@ class Client:
         if self.path is None:
             self.path = DEFAULT_DB_PATH
 
-        # Check if file already exists skip the download.
+        # Check if file already exists to skip the download.
         if os.path.exists(self.path) and not self.replace:
-            print("File already exists. Skipping download.")
+            pass
         else:
             if self.access_token is None:
                 raise SyntaxError("Token is required to download the file")
@@ -29,32 +31,40 @@ class Client:
             directory = os.path.dirname(self.path)
             if directory and not os.path.exists(directory):
                 os.makedirs(directory)
-                print("Downloading mmdb file.")
                 urllib.request.urlretrieve(DB_DOWNLOAD_URL+self.access_token, self.path)
 
         # Read the mmdb file.
         self.db = maxminddb.open_database(self.path)
 
     def getDetails(self, ip):
-        return self.db.get(ip)
+        return self.db.get(ip) or _no_data_error(ip)
 
     def getCountry(self, ip):
-        return self.db.get(ip)['country']
+        return self._get_data_field(ip, 'country')
     
     def getCountryName(self, ip):
-        return self.db.get(ip)['country_name']
+        return self._get_data_field(ip, 'country_name')
     
     def getContinent(self, ip):
-        return self.db.get(ip)['continent']
+        return self._get_data_field(ip, 'continent')
     
     def getContinentName(self, ip):
-        return self.db.get(ip)['continent_name']
+        return self._get_data_field(ip, 'continent_name')
     
     def getASN(self, ip):
-        return self.db.get(ip)['asn']
+        return self._get_data_field(ip, 'asn')
     
     def getASNName(self, ip):
-        return self.db.get(ip)['as_name']
+        return self._get_data_field(ip, 'as_name')
     
     def getASNDomain(self, ip):
-        return self.db.get(ip)['as_domain']
+        return self._get_data_field(ip, 'as_domain')
+    
+    def _get_data_field(self, ip, field):
+        data = self.db.get(ip)
+        return data[field] if data else _no_data_error(ip)
+    
+# helper function to return error message.
+def _no_data_error(ip): 
+    return f"err: couldn't get data for {ip}"
+

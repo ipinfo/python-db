@@ -3,7 +3,7 @@ from setuptools import setup
 from ipinfodb.version import SDK_VERSION
 
 long_description = """
-The official Python free database library for IPinfo.
+The official Python free database library for IPInfo.
 
 IPinfo prides itself on being the most reliable, accurate, and in-depth source of IP address data available anywhere.
 We process terabytes of data to produce our custom IP geolocation, company, carrier and IP type data sets.

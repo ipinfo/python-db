@@ -4,7 +4,9 @@ This is the official Python library for IPinfo.io's free [IP to Country ASN Data
 
 ## Getting Started
 
-You'll need an IPinfo API access token (which you can get by singing up for a free account at [https://ipinfo.io/signup](https://ipinfo.io/signup)) if you want to download the free database or you can provide the path to the mmdb file.
+You'll need an IPinfo API access token (which you can get by signing up for a free account at [https://ipinfo.io/signup](https://ipinfo.io/signup)) if you want to download the free database.
+
+You can also provide the path to the database file explicitly.
 
 ### Installation
 
@@ -26,10 +28,13 @@ pip install ipinfodb
 >>> country
 'US'
 ```
-Client will download the free `country_asn` mmdb database if it doesn't exist or the path to the mmdb file is not provided. If the database exists in default path it'll skip the download but can be forced to replace the old file by providing `replace=True` while initializing client object.
+The `Client` will download the free `country_asn` database if it doesn't exist or if the path to the database file is not provided.
+
+If the database exists in the default path, the download will be skipped, but can still be forced to replace the old file by providing `replace=True` while initializing the `Client` object.
 ```python
 >>> client = ipinfodb.Client(access_token, replace=True)
 ```
+
 ### Available Methods
 
 - getCountry(ip)
