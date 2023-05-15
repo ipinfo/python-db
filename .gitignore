@@ -3,4 +3,5 @@ __pycache__/
 .pytest_cache
 env/
 build/
-ipinfodb.egg-info/
+ipinfo_db.egg-info/
+dist/

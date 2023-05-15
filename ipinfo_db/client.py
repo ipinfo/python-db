@@ -4,7 +4,7 @@ import os
 import appdirs
 
 DB_DOWNLOAD_URL = "https://ipinfo.io/data/free/country_asn.mmdb?token="
-DEFAULT_APP_PATH = appdirs.user_data_dir(appname='ipinfodb', appauthor='ipinfo') 
+DEFAULT_APP_PATH = appdirs.user_data_dir(appname='ipinfo_db', appauthor='ipinfo') 
 DEFAULT_DB_PATH = os.path.join(DEFAULT_APP_PATH, 'files/country_asn.mmdb')
 
 class Client:

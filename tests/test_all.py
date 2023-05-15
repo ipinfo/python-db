@@ -1,8 +1,8 @@
 import pytest
-import ipinfodb
+import ipinfo_db
 
 
-client = ipinfodb.Client(path='./tests/tests_db.mmdb')
+client = ipinfo_db.Client(path='./tests/tests_db.mmdb')
 
 
 def test_get_country():

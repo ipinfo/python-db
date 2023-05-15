@@ -1,6 +1,6 @@
 from setuptools import setup
 
-from ipinfodb.version import SDK_VERSION
+from ipinfo_db.version import SDK_VERSION
 
 long_description = """
 The official Python free database library for IPinfo.
@@ -11,7 +11,7 @@ You can visit our developer docs at https://ipinfo.io/developers.
 """
 
 setup(
-    name="ipinfodb",
+    name="ipinfo_db",
     version=SDK_VERSION,
     description="Official Python free database library for IPinfo",
     long_description=long_description,
@@ -19,7 +19,7 @@ setup(
     author="IPinfo",
     author_email="support@ipinfo.io",
     license="Apache License 2.0",
-    packages=["ipinfodb"],
+    packages=["ipinfo_db"],
     install_requires=["maxminddb"],
     include_package_data=True,
     zip_safe=False,

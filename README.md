@@ -14,15 +14,15 @@ This package works with Python 3.5 or greater. However, we only officially
 support non-EOL Python versions.
 
 ```bash
-pip install ipinfodb
+pip install ipinfo_db
 ```
 
 ### Quick Start
 
 ```python
->>> import ipinfodb
+>>> import ipinfo_db
 >>> access_token = '123456789abc'
->>> client = ipinfodb.Client(access_token)
+>>> client = ipinfo_db.Client(access_token)
 >>> ip_address = '216.239.36.21'
 >>> country = client.getCountry(ip_address)
 >>> country
@@ -32,7 +32,7 @@ The `Client` will download the free `country_asn` database if it doesn't exist o
 
 If the database exists in the default path, the download will be skipped, but can still be forced to replace the old file by providing `replace=True` while initializing the `Client` object.
 ```python
->>> client = ipinfodb.Client(access_token, replace=True)
+>>> client = ipinfo_db.Client(access_token, replace=True)
 ```
 
 ### Available Methods
