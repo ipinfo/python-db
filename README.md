@@ -14,7 +14,7 @@ This package works with Python 3.5 or greater. However, we only officially
 support non-EOL Python versions.
 
 ```bash
-pip install ipinfo_db
+pip install ipinfo-db
 ```
 
 ### Quick Start
