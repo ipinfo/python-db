@@ -59,7 +59,19 @@ class Client:
     
     def getASNDomain(self, ip):
         return self._get_data_field(ip, 'as_domain')
+
+    def getCountryDetails(self, ip):
+        fields = ["country", "country_name", "continent", "continent_name"]
+        return self._get_data_dictionary(ip, fields)
+
+    def getASNDetails(self, ip):
+        fields = ["asn", "as_domain", "as_name"]
+        return self._get_data_dictionary(ip, fields)
     
     def _get_data_field(self, ip, field):
         data = self.db.get(ip)
         return data[field] if data else None
+
+    def _get_data_dictionary(self, ip, fields):
+        data = self.db.get(ip)
+        return {k:data[key] for key in fields if key in data}
