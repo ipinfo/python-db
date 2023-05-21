@@ -37,34 +37,96 @@ class Client:
         self.db = maxminddb.open_database(self.path)
 
     def getDetails(self, ip):
+        r'''Returns all the country and ASN level IP information available for the input IP address in a dictionary format.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: All available country and ASN level information of the IP address.
+        :rtype: dict
+        '''
         return self.db.get(ip)
 
     def getCountry(self, ip):
+        r'''Returns the ISO 3166 country code of the input.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: Country code of the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'country')
     
     def getCountryName(self, ip):
+        r'''Returns the country name of the input IP address.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: Country name of the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'country_name')
     
     def getContinent(self, ip):
+        r'''Returns the continent shortcode of the input IP address.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: Continent code of the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'continent')
     
     def getContinentName(self, ip):
+        r'''Returns the name of the continent of the input IP address.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: Continent name of the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'continent_name')
     
     def getASN(self, ip):
+        r'''Returns the ASN (Autonomous System Number) of the input IP address.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: ASN (i.e. 	AS2381) of the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'asn')
     
     def getASNName(self, ip):
+        r'''Returns the AS (Autonomous System) organization of the input ip address.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: AS name of the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'as_name')
     
     def getASNDomain(self, ip):
+        r'''Returns the domain or the official website of the input IP address.
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: Domain or website of the AS organization owning the IP address.
+        :rtype: str
+        '''
         return self._get_data_field(ip, 'as_domain')
 
     def getCountryDetails(self, ip):
+        r'''Returns the country level geolocation information of the input ip address.
+        country, country_name, continent, and continent_name
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: Country and continent information of the IP address.
+        :rtype: dict
+        '''
         fields = ["country", "country_name", "continent", "continent_name"]
         return self._get_data_dictionary(ip, fields)
 
     def getASNDetails(self, ip):
+        r'''Returns all the available ASN-level information of the input IP address.
+        asn, as name, and as_domain
+
+        :param ip: Input IP address. Supports both IPv4 and IPv6 address.
+        :return: ASN-level information of the IP address.
+        :rtype: dict
+        '''
         fields = ["asn", "as_domain", "as_name"]
         return self._get_data_dictionary(ip, fields)
     
