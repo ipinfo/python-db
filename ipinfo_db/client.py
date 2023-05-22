@@ -12,7 +12,9 @@ class Client:
     def __init__(self, access_token=None, path=None, replace=False):
         f'''ipinfo_db handler method.
 
-        :param access_token: Required. Type: str. IPinfo access token to download the IP to Country ASN database.
+        :param access_token: Optional. Type: str. IPinfo access token to download the IP to Country ASN database.
+                            If database exists in `path` and replace is set to default or `False` access token is not required.
+                            This is because the data will not be downloaded. `access_token` is required to download new data.
         :param path: Optional. Type: str. Download path for the database. Default is set to: {DEFAULT_DB_PATH}
         :param replace: Optional. Type: bool. Set it to True if you want to replace your older downloaded database.
         :return: Client handler object.
