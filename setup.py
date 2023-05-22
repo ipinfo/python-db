@@ -20,7 +20,7 @@ setup(
     author_email="support@ipinfo.io",
     license="Apache License 2.0",
     packages=["ipinfo_db"],
-    install_requires=["maxminddb"],
+    install_requires=["maxminddb", "appdirs"],
     include_package_data=True,
     zip_safe=False,
 )

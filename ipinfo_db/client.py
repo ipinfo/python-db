@@ -21,17 +21,19 @@ class Client:
             self.path = DEFAULT_DB_PATH
 
         # Check if file already exists to skip the download.
-        if os.path.exists(self.path) and not self.replace:
+        if os.path.isfile(self.path) and not self.replace:
             pass
         else:
             if self.access_token is None:
                 raise SyntaxError("Token is required to download the file")
             
-            # Create directory if doesn't exist and download file.
+            # Create directory if doesn't exist.
             directory = os.path.dirname(self.path)
             if directory and not os.path.exists(directory):
                 os.makedirs(directory)
-                urllib.request.urlretrieve(DB_DOWNLOAD_URL+self.access_token, self.path)
+                
+            # Download file.
+            urllib.request.urlretrieve(DB_DOWNLOAD_URL+self.access_token, self.path)
 
         # Read the mmdb file.
         self.db = maxminddb.open_database(self.path)
