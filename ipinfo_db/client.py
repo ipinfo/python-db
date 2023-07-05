@@ -1,7 +1,7 @@
-import maxminddb
 import urllib.request
 import os
 import appdirs
+from ipinfo_db.reader import Reader
 
 DB_DOWNLOAD_URL = "https://ipinfo.io/data/free/country_asn.mmdb?token="
 DEFAULT_APP_PATH = appdirs.user_data_dir(appname='ipinfo_db', appauthor='ipinfo') 
@@ -20,6 +20,7 @@ class Client:
         self.access_token = access_token
         self.path = path
         self.replace = replace
+        self.reader = Reader()
 
         if self.access_token is None and self.path is None:
             raise SyntaxError("Token or Path is required")
@@ -43,7 +44,7 @@ class Client:
             urllib.request.urlretrieve(DB_DOWNLOAD_URL+self.access_token, self.path)
 
         # Read the mmdb file.
-        self.db = maxminddb.open_database(self.path)
+        self.db = self.reader.read(self.path)
 
     def getDetails(self, ip):
         '''Returns all the country and ASN level IP information available for the input IP address in a dictionary format.
@@ -52,7 +53,7 @@ class Client:
         :return: All available country and ASN level information of the IP address.
         :rtype: dict
         '''
-        return self.db.get(ip)
+        return self.reader.getDetails(ip)
 
     def getCountry(self, ip):
         '''Returns the ISO 3166 country code of the input.
@@ -61,7 +62,7 @@ class Client:
         :return: Country code of the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'country')
+        return self.reader.getCountry(ip)
     
     def getCountryName(self, ip):
         '''Returns the country name of the input IP address.
@@ -70,7 +71,7 @@ class Client:
         :return: Country name of the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'country_name')
+        return self.reader.getCountryName(ip)
     
     def getContinent(self, ip):
         '''Returns the continent shortcode of the input IP address.
@@ -79,7 +80,7 @@ class Client:
         :return: Continent code of the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'continent')
+        return self.reader.getContinent(ip)
     
     def getContinentName(self, ip):
         '''Returns the name of the continent of the input IP address.
@@ -88,7 +89,7 @@ class Client:
         :return: Continent name of the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'continent_name')
+        return self.reader.getContinentName(ip)
     
     def getASN(self, ip):
         '''Returns the ASN (Autonomous System Number) of the input IP address.
@@ -97,7 +98,7 @@ class Client:
         :return: ASN (i.e. 	AS2381) of the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'asn')
+        return self.reader.getASN(ip)
     
     def getASNName(self, ip):
         '''Returns the AS (Autonomous System) organization of the input ip address.
@@ -106,7 +107,7 @@ class Client:
         :return: AS name of the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'as_name')
+        return self.reader.getASNName(ip)
     
     def getASNDomain(self, ip):
         '''Returns the domain or the official website of the input IP address.
@@ -115,7 +116,7 @@ class Client:
         :return: Domain or website of the AS organization owning the IP address.
         :rtype: str
         '''
-        return self._get_data_field(ip, 'as_domain')
+        return self.reader.getASNDomain(ip)
 
     def getCountryDetails(self, ip):
         '''Returns the country level geolocation information of the input ip address.
@@ -125,8 +126,7 @@ class Client:
         :return: Country and continent information of the IP address.
         :rtype: dict
         '''
-        fields = ["country", "country_name", "continent", "continent_name"]
-        return self._get_data_dictionary(ip, fields)
+        return self.reader.getCountryDetails(ip)
 
     def getASNDetails(self, ip):
         '''Returns all the available ASN-level information of the input IP address.
@@ -136,13 +136,5 @@ class Client:
         :return: ASN-level information of the IP address.
         :rtype: dict
         '''
-        fields = ["asn", "as_domain", "as_name"]
-        return self._get_data_dictionary(ip, fields)
+        return self.reader.getASNDetails(ip)
     
-    def _get_data_field(self, ip, field):
-        data = self.db.get(ip)
-        return data[field] if data else None
-
-    def _get_data_dictionary(self, ip, fields):
-        data = self.db.get(ip)
-        return {k:data[key] for key in fields if key in data}
