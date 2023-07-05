@@ -137,4 +137,3 @@ class Client:
         :rtype: dict
         '''
         return self.reader.getASNDetails(ip)
-    
