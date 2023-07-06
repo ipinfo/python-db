@@ -45,25 +45,10 @@ class Client:
         # Read the mmdb file.
         self.db = Reader(self.path)
 
-    def open(self, path):
-        '''Opens the mmdb file located at the given path.
-
-        :param path: Path to mmdb file.
-        '''
-        self.db.open(path)
-
     def close(self):
         '''Closes the mmdb file.
         '''
         self.db.close()
-
-    def getMetadata(self):
-        '''Returns the metadata associated with the mmdb file.
-
-        :return: metadata of the mmdb file.
-        :rtype: Metadata
-        '''
-        return self.db.metadata()
 
     def getDetails(self, ip):
         '''Returns all the country and ASN level IP information available for the input IP address in a dictionary format.
