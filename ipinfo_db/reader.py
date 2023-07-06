@@ -3,7 +3,7 @@ import maxminddb
 class Reader:
 
     def __init__(self, path):
-        '''Initiates Reader object with the given path.
+        '''Initializes the Reader object with the given path.
 
         :param: path: Path to the mmdb file.
         '''
