@@ -37,13 +37,36 @@ If the database exists in the default path, the download will be skipped, but ca
 
 ### Available Methods
 
+- getDetails(ip)
+- getCountryDetails(ip)
 - getCountry(ip)
 - getCountryName(ip)
 - getContinent(ip)
 - getContinentName(ip)
+- getASNDetails(ip)
 - getASN(ip)
 - getASNName(ip)
 - getASNDomain(ip)
+- close()
+
+### Using the MMDB reader separately
+
+Advanced users can use the MMDB reader that is included in the installation.
+
+#### Sample Usage
+```python
+>>> from ipinfo_db.reader import Reader
+>>> db = Reader('PATH_TO_MMDB_FILE')
+>>> result = db.get('IP')
+>>> result
+```
+#### Available Methods
+
+- open(path)
+- close()
+- metadata()
+- get(ip)
+- getWithPrefixLen(ip)
 
 ## Other Libraries
 

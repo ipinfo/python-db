@@ -1,7 +1,7 @@
-import maxminddb
 import urllib.request
 import os
 import appdirs
+from ipinfo_db.reader import Reader
 
 DB_DOWNLOAD_URL = "https://ipinfo.io/data/free/country_asn.mmdb?token="
 DEFAULT_APP_PATH = appdirs.user_data_dir(appname='ipinfo_db', appauthor='ipinfo') 
@@ -43,7 +43,12 @@ class Client:
             urllib.request.urlretrieve(DB_DOWNLOAD_URL+self.access_token, self.path)
 
         # Read the mmdb file.
-        self.db = maxminddb.open_database(self.path)
+        self.db = Reader(self.path)
+
+    def close(self):
+        '''Closes the mmdb file.
+        '''
+        self.db.close()
 
     def getDetails(self, ip):
         '''Returns all the country and ASN level IP information available for the input IP address in a dictionary format.
@@ -145,4 +150,4 @@ class Client:
 
     def _get_data_dictionary(self, ip, fields):
         data = self.db.get(ip)
-        return {k:data[key] for key in fields if key in data}
+        return {key:data[key] for key in fields if key in data}
