@@ -7,6 +7,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    environment:
+      name: release
+      url: https://pypi.org/project/ipinfo-db
+
+    permissions:
+      id-token: write
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -23,6 +30,4 @@ jobs:
       run: python setup.py sdist
 
     - name: Publish package
-      run: |
-        pip install twine
-        twine upload --non-interactive dist/*
+      uses: pypa/gh-action-pypi-publish@release/v1
