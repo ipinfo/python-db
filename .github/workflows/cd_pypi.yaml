@@ -25,4 +25,4 @@ jobs:
     - name: Publish package
       run: |
         pip install twine
-        twine upload dist/*
+        twine upload --non-interactive dist/*
