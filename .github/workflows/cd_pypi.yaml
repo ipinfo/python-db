@@ -1,6 +1,9 @@
 name: Release Python Package to pypi
 
-on: workflow_dispatch
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   publish:
